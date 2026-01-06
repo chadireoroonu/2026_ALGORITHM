@@ -3,14 +3,12 @@
 # https://chadireoroonu.tistory.com/335
 
 def solution(s):
-    answer = ''
+    answer = [] # 리스트로 수정
     s = ' ' + s
         
     for i in range(1, len(s)):
-        if s[i] == ' ': # 현재 글자가 공백이라면 그대로 공백 추가
-            answer += ' '
-            continue
-        # 현재 글자가 공백이 아니면 내 앞 글자가 공백일 시 대문자 아니면 소문자
-        answer += s[i].lower() if s[i - 1] != ' ' else s[i].upper()
+        # 저장할 글자 문제 요구사항에 맞춰 변환
+        char = s[i].lower() if s[i - 1] != ' ' else s[i].upper()
+        answer.append(char)
         
-    return answer
+    return ''.join(answer)
