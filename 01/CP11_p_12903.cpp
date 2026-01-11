@@ -7,13 +7,7 @@
 using namespace std;
 
 string solution(string s) {
-    string answer = "";
-    
-    if (s.length() % 2) {
-        answer = s[s.length() / 2];
-    } else {
-        answer = s.substr(s.length() / 2 - 1, 2);
-    }
-    
-    return answer;
+    int n = s.length();
+
+    return (n % 2) ? s.substr(n / 2, 1) : s.substr(n / 2 - 1, 2);
 }
