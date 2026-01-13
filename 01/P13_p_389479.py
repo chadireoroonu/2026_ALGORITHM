@@ -3,22 +3,18 @@
 # https://chadireoroonu.tistory.com/341
 
 def solution(players, m, k):
-    answer = 0
-    server_count = 0
-    server_open = [0] * 24
+    answer = [0] * 24
+    server = 0
     
     for i in range(24):
         # 서버 줄이기
         if i >= k:
-            server_count -= server_open[i - k]
-            
-        # 서버 늘리기
-        plus = 0
-        if players[i] >= m * server_count:
-            plus = (players[i] - (m * server_count)) // m  
+            server -= answer[i - k]
         
-        server_open[i] = plus
-        server_count += plus
-        answer += plus
+        # 서버 늘리기
+        need = players[i] // m
+        if need > server:
+            answer[i] = need - server
+            server += need - server
     
-    return answer
+    return sum(answer)
