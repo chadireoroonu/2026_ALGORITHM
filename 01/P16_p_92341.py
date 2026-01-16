@@ -8,28 +8,22 @@ def solution(fees, records):
     answer = []
     parking, total = {}, {}
     
-    def calculate(n, t): # 차량별 주차 시간 더하기
-        total[n] = total[n] + t - parking[n] if n in total else t - parking[n]
-        return
-    
     for r in records: # 입력처리
         time, num, type = list(r.split(' '))
-        if type == 'IN': # 입차차량 기록
-            parking[num] = int(time[:2]) * 60 + int(time[3:])
-        else: # 출차차량 주차 시간 계산
-            calculate(num, int(time[:2]) * 60 + int(time[3:]))
-            parking.pop(num) # 입차 목록에서 삭제
+        minutes = int(time[:2]) * 60 + int(time[3:])
+        if type == 'IN': # 입차 시간 기록
+            parking[num] = minutes
+        else: # 입차 시간으로 주차 시간 계산
+            intime = parking.pop(num)
+            total[num] = total[num] + minutes - intime if num in total else minutes - intime
     
-    for p in parking: # 출차 안 한 차들 주차 시간 계산
-        calculate(p, 23 * 60 + 59)
+    for num, intime in parking.items(): # 출차 안 한 차들 주차 시간 계산
+        total[num] = total[num] + 1439 - intime if num in total else 1439 - intime
     
-    cars = sorted(total) # 차량 번호 순 정렬용
-    
-    for c in cars: # 차량별 주차요금 계산
-        if total[c] <= fees[0]: # 기본시간 내
+    for car in sorted(total): # 차량별 주차요금 계산
+        if total[car] <= fees[0]: # 기본시간 내
             answer.append(fees[1])
         else: # 기본시간 외
-            over = ceil((total[c] - fees[0]) / fees[2])
-            answer.append(fees[1] + over * fees[3])
+            answer.append(fees[1] + ceil((total[car] - fees[0]) / fees[2]) * fees[3])
 
     return answer
