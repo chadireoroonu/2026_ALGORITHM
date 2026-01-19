@@ -5,7 +5,7 @@
 def solution(n):
     binary = '0' + bin(n)[2:] # 0b 자르기
     
-    target = binary.rfind('01') # 문자열 '01' 인덱스 찾기
-    answer = list(binary[:target]) + ['1', '0'] + sorted(list(binary[target + 2:]))
+    target = binary.rfind('01') # '01' 문자열 인덱스 찾기
+    answer = binary[:target] + '10' + "".join(sorted(binary[target + 2:]))
 
-    return int("".join(answer), 2)
+    return int(answer, 2)
