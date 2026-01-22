@@ -3,12 +3,8 @@
 // https://chadireoroonu.tistory.com/345
 
 function solution(s){
-    let p = 0, y = 0
+    const p = (s.match(/p/gi) || []).length
+    const y = (s.match(/y/gi) || []).length
     
-    for (let c of s) {
-        if (c == 'p' | c == 'P') p++
-        else if (c == 'y' | c == 'Y') y++
-    }
-
-    return p == y ? true : false
+    return p === y
 }
