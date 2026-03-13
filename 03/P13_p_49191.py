@@ -16,7 +16,7 @@ def solution(n, results):
     # BFS 탐색
     def battle(p, arr): # 직접 경기하지 않은 사람들과의 관계 확인
         queue = deque([p])
-        people = deque([])
+        people = set() # 추가할 사람들
         visited = [False] * (n + 1)
         visited[p] = True
         
@@ -24,11 +24,11 @@ def solution(n, results):
             x = queue.popleft()
             for nx in arr[x]:
                 if not visited[nx]:
-                    people.append(nx)
+                    people.add(nx)
                     visited[nx] = True
                     queue.append(nx)
                 
-        return set(people)
+        return people
     
     
     for p in range(1, n + 1):
