@@ -5,16 +5,12 @@ def solution(n):
     answer = 0
     nums = [1] * n
     
-    if n == 1: # 예외처리
-        return 1
-    
-    for i in range(1, n): # 누적합
+    for i in range(1, n):
         nums[i] += i + nums[i - 1]
         
-    first = 1
-    second = 0
+    first = second = 0
     
-    while first < n and second < n - 1:
+    while first < n and second < n:
         if nums[first] == n:
             answer += 1
             first += 1
@@ -27,7 +23,6 @@ def solution(n):
         elif temp < n:
             first += 1
             continue
-            
         second += 1
-            
+    
     return answer
